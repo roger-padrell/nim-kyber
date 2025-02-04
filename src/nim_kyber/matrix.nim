@@ -64,3 +64,44 @@ proc `-`*(m: Matrix, n: Matrix): Matrix =
       c = c+1;
     r = r+1;
   return o;
+
+# Fill
+proc fill*(m: var Matrix, n: int, size:(int,int)=m.size()): Matrix = 
+  var r = 0;
+  var c = 0;
+  while r < m.size()[0]:
+    while c < m.size()[1]:
+      m[r,c] = n;
+      c = c+1;
+    r = r+1;
+  return m;
+
+# Multiply
+# By int (n)
+proc `*`*(m: Matrix, n: int): Matrix = 
+  var r = 0;
+  var c = 0;
+  var o: Matrix;
+  while r < m.size()[0]:
+    while c < m.size()[1]:
+      o[r,c] = m[r,c] * n;
+      c = c+1;
+    r = r+1;
+  return o;
+
+# By Matrix (b)
+proc `*`*(a: Matrix, b: Matrix): Matrix =
+  let A_H = a.size()[0];
+  let A_W = a.size()[1];
+  let B_W = b.size()[1];
+  ## Returns the product of matrix a (dimensions A_H x A_W) and matrix b (dimensions A_W x B_W).
+  var result: Matrix;
+  # Initialize result to all zeros (this is optional since the following loop sets each entry).
+  result = result.fill(0, (A_W, B_W))
+
+  # Compute the matrix multiplication.
+  for i in 0..<A_H:
+    for j in 0..<B_W:
+      for k in 0..<A_W:
+        result[i][j] += a[i][k] * b[k][j]
+  return result
