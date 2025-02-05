@@ -4,9 +4,9 @@ following [this](https://crypto.stackexchange.com/questions/103754/kyber-and-dil
 ## ⚠️This library is not completed⚠️
 Implemented:
 - [x] Matrix calculations and mod
-- [ ] Key generation
-  - [ ] Public keys
-  - [ ] Private key
+- [x] Key generation
+  - [x] Public keys
+  - [x] Private key
 - [ ] Message - encryptable
   - [ ] Message to encryptable conversion
   - [ ] Encryptable to message conversion
@@ -15,9 +15,9 @@ Implemented:
 
 Tests generated for:
 - [x] Matrix calculations and mod
-- [ ] Key generation
-  - [ ] Public keys
-  - [ ] Private key
+- [x] Key generation
+  - [x] Public keys
+  - [x] Private key
 - [ ] Message - encryptable
   - [ ] Message to encryptable conversion
   - [ ] Encryptable to message conversion
