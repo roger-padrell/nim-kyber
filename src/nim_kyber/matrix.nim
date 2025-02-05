@@ -1,107 +1,59 @@
-type 
-  Matrix*[H:int, W:int] = array[H, array[W, int]]
+type
+  List* = array[4, int]
+  Matrix*[H: int] = array[H,List]
 
-# Get
-proc `[]`*(m: Matrix, y: int, x: int): int = 
-  if y < m.size()[0] and x < m.size()[1]:
-    return m[y][x]
-  else:
-    return 0;
+proc modByModN(n: int): int =
+  let m = n mod 31
+  if m >= 16:
+    m - 31
+  elif m <= -16:
+    m + 31
+  else: 
+    m
 
-# Set
+proc generateComponent(a: List, multiplier: int, shift: int): List =
+  var multiplied: List
+  for i in 0..3:
+    multiplied[i] = modByModN(a[i] * multiplier)
+  
+  let k = shift mod 4
+  var shifted: List
+  
+  # Handle the wrapped elements with sign change
+  for i in 0..<k:
+    let idx = 4 - k + i
+    shifted[i] = modByModN(-multiplied[idx])
+  
+  # Handle the remaining elements
+  for i in k..3:
+    shifted[i] = multiplied[i - k]
+  
+  shifted
+
+proc `+`*(a, b: List): List =
+  for i in 0..3:
+    result[i] = modByModN(a[i] + b[i])
+
+proc `-`*(a, b: List): List =
+  for i in 0..3:
+    result[i] = modByModN(a[i] - b[i])
+
+proc `*`*(a, b: List): List =
+  var components: array[4, List]
+  
+  # Generate all four components
+  for k in 0..3:
+    components[k] = generateComponent(a, b[k], k)
+  
+  # Sum all components
+  for i in 0..3:
+    var sum = 0
+    for component in components:
+      sum += component[i]
+    result[i] = modByModN(sum)
+
+proc `[]`*(m: Matrix, y: int, x:int): int = 
+  m[y][x]
+
 proc `[]=`*(m: var Matrix, y: int, x: int, val: int) = 
-  if y < m.size()[0] and x < m.size()[1]:
-    m[y][x] = val;
-
-# Size
-proc size*(m: Matrix): (int, int) = 
-  return (len(m), len(m[0]))
-
-# Is equal
-proc `==`*(m: Matrix, n: Matrix): bool = 
-  var b: bool = true;
-
-  # Same size
-  if m.size() != n.size:
-    b = false;
-  # Check every number
-  var r = 0;
-  var c = 0;
-  while r < m.size()[0]:
-    while c < m.size()[1]:
-      if m[r,c] != n[r,c]:
-        b = false;
-      c = c+1;
-    r = r+1;
-  return b;
-
-# Add
-proc `+`*(m: Matrix, n: Matrix): Matrix =
-  var o: Matrix;
-  if(m.size() != n.size()):
-    echo "Error when adding matrix. The given matrixes don't have the same lengh."
-    return o;
-  var r = 0;
-  var c = 0;
-  while r < m.size()[0]:
-    while c < m.size()[1]:
-      o[r,c] = m[r,c] + n[r,c];
-      c = c+1;
-    r = r+1;
-  return o;
-
-# Subract
-proc `-`*(m: Matrix, n: Matrix): Matrix =
-  var o: Matrix;
-  if(m.size() != n.size()):
-    echo "Error when subtractinb matrix. The given matrixes don't have the same lengh."
-    return o;
-  var r = 0;
-  var c = 0;
-  while r < m.size()[0]:
-    while c < m.size()[1]:
-      o[r,c] = m[r,c] - n[r,c];
-      c = c+1;
-    r = r+1;
-  return o;
-
-# Fill
-proc fill*(m: var Matrix, n: int, size:(int,int)=m.size()): Matrix = 
-  var r = 0;
-  var c = 0;
-  while r < m.size()[0]:
-    while c < m.size()[1]:
-      m[r,c] = n;
-      c = c+1;
-    r = r+1;
-  return m;
-
-# Multiply
-# By int (n)
-proc `*`*(m: Matrix, n: int): Matrix = 
-  var r = 0;
-  var c = 0;
-  var o: Matrix;
-  while r < m.size()[0]:
-    while c < m.size()[1]:
-      o[r,c] = m[r,c] * n;
-      c = c+1;
-    r = r+1;
-  return o;
-
-# By Matrix (b)
-proc `*`*(a: Matrix, b: Matrix): Matrix =
-  let A_H = a.size()[0];
-  let A_W = a.size()[1];
-  let B_W = b.size()[1];
-  ## Returns the product of matrix a (dimensions A_H x A_W) and matrix b (dimensions A_W x B_W).
-  var result: Matrix;
-  # Initialize result to all zeros (this is optional since the following loop sets each entry).
-  result = result.fill(0, (A_W, B_W))
-
-  # Compute the matrix multiplication.
-  for i in 0..<A_H:
-    for j in 0..<B_W:
-      for k in 0..<A_W:
-        result[i][j] += a[i][k] * b[k][j]
-  return result
+  m[y][x] = val;
