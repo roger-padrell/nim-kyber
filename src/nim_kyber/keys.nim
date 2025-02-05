@@ -44,12 +44,12 @@ proc clamp(x: int): int =
   else:
     return m
 
-proc rotateRight(arr: array[4, int], n: int): array[4, int] =
+proc rotateRight(arr: List, n: int): List =
   ## Rotates an array to the right by `n` positions, with sign changes for wrapped elements.
   let n = n mod 4
   if n == 0:
     return arr
-  var res: array[4, int]
+  var res: List
   for i in 0..<4:
     let newPos = (i + n) mod 4
     res[newPos] = arr[i]
@@ -57,11 +57,11 @@ proc rotateRight(arr: array[4, int], n: int): array[4, int] =
       res[newPos] = -res[newPos]  # Change sign for wrapped elements
   return res
 
-proc multiply(a, b: array[4, int]): array[4, int] =
+proc multiply(a, b: List): List =
   ## Multiplies two 4-element arrays using the specified rules.
-  var sum: array[4, int] = [0, 0, 0, 0]
+  var sum: List = [0, 0, 0, 0]
   for i in 0..3:
-    var term: array[4, int]
+    var term: List
     for j in 0..3:
       term[j] = a[j] * b[i]
     var rotated = rotateRight(term, i)
@@ -73,12 +73,12 @@ proc multiply(a, b: array[4, int]): array[4, int] =
     sum[k] = clamp(sum[k])
   return sum
 
-proc addLists(a, b: array[4, int]): array[4, int] =
+proc addLists(a, b: List): List =
   ## Adds two 4-element arrays and clamps the result.
   for i in 0..3:
     result[i] = clamp(a[i] + b[i])
 
-proc generatePublicKey*(table: array[4, array[4, int]], signal_secret: array[2, array[4, int]], noise_secret: array[2, array[4, int]]): (array[4, int], array[4, int]) =
+proc generatePublicKey*(table: Matrix[4], signal_secret: Matrix[2], noise_secret: Matrix[2]): (List, List) =
   ## Generates the public key pair using the given table, signal secret, and noise secret.
   let term1 = multiply(table[0], signal_secret[0])
   let term2 = multiply(table[1], signal_secret[1])
