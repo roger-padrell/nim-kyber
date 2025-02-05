@@ -1,8 +1,9 @@
 import std/random, matrix
 randomize()
 
-proc generateSignalSecret(rng: (int,int)): Matrix[4,4] = 
-  var m: Matrix[4,4];
+proc generateSignalSecret(rng: (int,int)= (-1,1)): Matrix[2,4] = 
+  var m: Matrix[2,4];
+  m = m.fill(0)
   var r = 0;
   var c = 0;
   while r < m.size()[0]:
