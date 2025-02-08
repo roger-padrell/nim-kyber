@@ -1,6 +1,6 @@
-import nim_kyber/matrix, unittest
+import nim_kyber/baby/matrix, unittest
 
-suite "4-number list tests":
+suite "BABY KYBER: 4-number list tests":
   test "Creation":
     let
       a = [-3, 0, 14, 14]

@@ -1,6 +1,6 @@
-import unittest, nim_kyber/[keys]
+import unittest, nim_kyber/baby/[keys]
 
-suite "Key generation test":
+suite "BABY KYBER: Key generation test":
     test "Generate signal secret":
         var ss = generateSignalSecret()
         assert ss.len() == 2

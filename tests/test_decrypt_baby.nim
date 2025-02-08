@@ -1,6 +1,6 @@
-import unittest, nim_kyber/[decrypt]
+import unittest, nim_kyber/baby/[decrypt]
 
-suite "Decryption tests":
+suite "BABY KYBER: Decryption tests":
     test "Big or small":
         assert bigOrSmall([-2,13,7,-11], (-7, 7)) == [0, -15, 0, -15]
         assert bigOrSmall([7,-7,7,-7], (-7, 7)) == [0,0,0,0]

@@ -1,6 +1,6 @@
-import unittest, nim_kyber/[encrypt]
+import unittest, nim_kyber/baby/[encrypt]
 
-suite "Encryption tests":
+suite "BABY KYBER: Encryption tests":
     test "Encrypting key generation":
         let table = [
             [13, 13, -12, 3],   # Row 0 (correct)
