@@ -23,7 +23,7 @@ The kyber object is the one that creates the public keys, and the one that will 
 
 ### Creating a random baby-kyber object
 To create a random kyber object, you just need to use `createRandomBabyKyber` function:
-```
+```nim
 # Code origin: nim_kyber/docs/baby.md
 # Example: Creating a random baby-kyber object
 # Machine: A (reciever)
