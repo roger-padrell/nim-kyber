@@ -1,10 +1,12 @@
 import matrix, std/random
+randomize()
 
 proc generateSenderSignalSecret*(rng: (int,int)= (-1,1)): Matrix[2] = 
   var m: Matrix[2];
   var r = 0;
   var c = 0;
   while r < 2:
+    c=0;
     while c < 4:
       m[r,c] = rand(rng[0]..rng[1]);
       c = c+1;
@@ -16,6 +18,7 @@ proc generateSenderNoiseSecret*(rng: (int,int)= (-1,1)): Matrix[2] =
   var r = 0;
   var c = 0;
   while r < 2:
+    c=0;
     while c < 4:
       m[r,c] = rand(rng[0]..rng[1]);
       c = c+1;

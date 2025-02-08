@@ -33,6 +33,7 @@ proc createBabyMessageSender*(publicTable: Matrix[4], reciverPublicKeys: (List, 
     bk.noiseSecret = generateSenderNoiseSecret();
     bk.signalSecret = generateSenderSignalSecret();
     bk.senderPublicKeys = generateSenderEncryptionKey(bk.publicTable, bk.signalSecret, bk.noiseSecret)
+    return bk;
 
 proc sendMessage*(bk: BabyKyberSender, message: List): BabyMessage = 
     var bm: BabyMessage;

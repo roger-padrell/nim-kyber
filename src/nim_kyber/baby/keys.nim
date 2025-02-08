@@ -6,6 +6,7 @@ proc generateSignalSecret*(rng: (int,int)= (-1,1)): Matrix[2] =
   var r = 0;
   var c = 0;
   while r < 2:
+    c=0
     while c < 4:
       m[r,c] = rand(rng[0]..rng[1]);
       c = c+1;
@@ -17,6 +18,7 @@ proc generateNoiseSecret*(rng: (int,int)= (-1,1)): Matrix[2] =
   var r = 0;
   var c = 0;
   while r < 2:
+    c=0
     while c < 4:
       m[r,c] = rand(rng[0]..rng[1]);
       c = c+1;
@@ -27,7 +29,8 @@ proc generatePublicTable*(rng: (int,int)= (-15,15)): Matrix[4] =
   var m: Matrix[4];
   var r = 0;
   var c = 0;
-  while r < 2:
+  while r < 4:
+    c=0;
     while c < 4:
       m[r,c] = rand(rng[0]..rng[1]);
       c = c+1;
