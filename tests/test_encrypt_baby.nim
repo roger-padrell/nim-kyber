@@ -19,7 +19,7 @@ suite "BABY KYBER: Encryption tests":
         [0, 0, 1, 0]
         ]
 
-        let (public1, public2) = generateEncryptionKey(table, signal_secret, noise_secret)
+        let (public1, public2) = generateSenderEncryptionKey(table, signal_secret, noise_secret)
         assert public1  == [-6, 10, -8, 6]
         assert public2  == [7, -14, -9, -15]
 

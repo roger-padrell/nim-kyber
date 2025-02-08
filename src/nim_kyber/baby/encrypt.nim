@@ -1,6 +1,6 @@
 import matrix, std/random
 
-proc generateSignalSecret*(rng: (int,int)= (-1,1)): Matrix[2] = 
+proc generateSenderSignalSecret*(rng: (int,int)= (-1,1)): Matrix[2] = 
   var m: Matrix[2];
   var r = 0;
   var c = 0;
@@ -11,7 +11,7 @@ proc generateSignalSecret*(rng: (int,int)= (-1,1)): Matrix[2] =
     r = r+1;
   return m;
 
-proc generateNoiseSecret*(rng: (int,int)= (-1,1)): Matrix[2] = 
+proc generateSenderNoiseSecret*(rng: (int,int)= (-1,1)): Matrix[2] = 
   var m: Matrix[2];
   var r = 0;
   var c = 0;
@@ -22,7 +22,7 @@ proc generateNoiseSecret*(rng: (int,int)= (-1,1)): Matrix[2] =
     r = r+1;
   return m;
 
-proc generateEncryptionKey*(table: Matrix[4], signal_secret: Matrix[2], noise_secret: Matrix[2]): (List, List) =
+proc generateSenderEncryptionKey*(table: Matrix[4], signal_secret: Matrix[2], noise_secret: Matrix[2]): (List, List) =
   ## Generates the public key pair using the given table, signal secret, and noise secret.
   let term1 = table[0] * signal_secret[0]
   let term2 = table[2] * signal_secret[1]
