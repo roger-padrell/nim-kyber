@@ -1,4 +1,4 @@
-import unittest, nim_kyber/[keys, matrix]
+import unittest, nim_kyber/[keys]
 
 suite "Key generation test":
     test "Generate signal secret":
