@@ -16,15 +16,15 @@ See the documentation [here](./docs/index.md)
 - [x] Message decryption
 
 #### Kyber
-- [ ] Matrix calculations and mod
-- [ ] Key generation
-  - [ ] Public keys
-  - [ ] Private key
-- [ ] Message - encryptable
-  - [ ] Message to encryptable conversion
-  - [ ] Encryptable to message conversion
-- [ ] Message encryption
-- [ ] Message decryption
+- [x] Matrix calculations and mod
+- [x] Key generation
+  - [x] Public keys
+  - [x] Private key
+- [x] Message - encryptable
+  - [x] Message to encryptable conversion
+  - [x] Encryptable to message conversion
+- [x] Message encryption
+- [x] Message decryption
 
 ### Tests generated for:
 #### Baby kyber
@@ -36,15 +36,7 @@ See the documentation [here](./docs/index.md)
 - [x] Message decryption
 
 #### Kyber
-- [ ] Matrix calculations and mod
-- [ ] Key generation
-  - [ ] Public keys
-  - [ ] Private key
-- [ ] Message - encryptable
-  - [ ] Message to encryptable conversion
-  - [ ] Encryptable to message conversion
-- [ ] Message encryption
-- [ ] Message decryption
+- [x] General
 
 ### Added documentation
 - [x] Baby kyber
@@ -58,3 +50,5 @@ See the documentation [here](./docs/index.md)
   - [ ] Creating sending object
   - [ ] Encrypting and sending messages
   - [ ] Decrypting messages
+  - [ ] Encrypting and sending strings
+  - [ ] Decrypting strings

@@ -1,10 +1,9 @@
-import nim_kyber/baby
+import nim_kyber/big, nim_kyber/big/stringToList
 
-var bk: BabyKyber = createRandomBabyKyber();
-var bs: BabyKyberSender = createBabyMessageSender(bk.publicTable, bk.publicKeys);
+var bk: Kyber = createRandomKyber();
+var bs: KyberSender = createMessageSender(bk.publicTable, bk.publicKeys);
 
-var m: BabyMessage = bs.sendMessage([0, -15, -15, 0]);
+var m: Message = bs.sendString("Hello");
 
-echo bk
-echo bs
-echo m
+echo "Hello".stringToBinary()
+echo bk.recieveString(m).stringToBinary()

@@ -1,3 +1,3 @@
-import nim_kyber/baby
+import nim_kyber/baby, nim_kyber/big
 
-export baby
+export baby, big

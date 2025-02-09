@@ -1,8 +1,8 @@
-type
-  List* = array[4, int]
-  Matrix*[H: int] = array[H,List]
+import consts
 
-const clampingRange = (-15, 15)
+type
+  List* = array[listSize, int]
+  Matrix*[H: int] = array[H,List]
 
 proc clamp*(x: int): int =
   let m = x mod (abs(clampingRange[0])+clampingRange[1]+1)
@@ -13,43 +13,51 @@ proc clamp*(x: int): int =
   else:
     return m
 
+proc fill*(a: List, n: int): List = 
+  var b: List = a;
+  var c = 0;
+  while c < listSize:
+    b[c] = c;
+    c = c+1;
+  return b;
+
 proc rotateRight(arr: List, n: int): List =
   ## Rotates an array to the right by `n` positions, with sign changes for wrapped elements.
-  let n = n mod 4
-  if n == 0:
+  let k = n mod listSize
+  if k == 0:
     return arr
   var res: List
-  for i in 0..<4:
-    let newPos = (i + n) mod 4
+  for i in 0..<listSize:
+    let newPos = (i + k) mod listSize
     res[newPos] = arr[i]
-    if newPos < n:
-      res[newPos] = -res[newPos]  # Change sign for wrapped elements
+    if newPos < k:
+      res[newPos] = -res[newPos]  # Negate elements that wrapped around
   return res
 
 proc `*`*(a, b: List): List =
-  ## Multiplies two 4-element arrays using the specified rules.
-  var sum: List = [0, 0, 0, 0]
-  for i in 0..3:
+  ## Multiplies two `listSize`-element arrays using the specified rules.
+  assert a.len == listSize and b.len == listSize, 
+    "Lists must have exactly " & $listSize & " elements"
+  
+  var sum: List
+  for i in 0..<listSize:
     var term: List
-    for j in 0..3:
+    for j in 0..<listSize:
       term[j] = a[j] * b[i]
-    var rotated = rotateRight(term, i)
-    for k in 0..3:
-      rotated[k] = clamp(rotated[k])
-    for k in 0..3:
-      sum[k] += rotated[k]
-  for k in 0..3:
+    let rotated = rotateRight(term, i)
+    for k in 0..<listSize:
+      sum[k] += clamp(rotated[k])
+  for k in 0..<listSize:
     sum[k] = clamp(sum[k])
   return sum
 
 
 proc `+`*(a, b: List): List =
-  ## Adds two 4-element arrays and clamps the result.
-  for i in 0..3:
+  for i in 0..(listSize-1):
     result[i] = clamp(a[i] + b[i])
 
 proc `-`*(a, b: List): List =
-  for i in 0..3:
+  for i in 0..(listSize-1):
     result[i] = clamp(a[i] - b[i])
 
 proc `[]`*(m: Matrix, y: int, x:int): int = 
