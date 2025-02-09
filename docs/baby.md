@@ -36,7 +36,7 @@ var bk: BabyKyber = createRandomBabyKyber();
 
 ### Creating kyber object with known tables and keys
 You can also create an object with predefined tables and keys.
-```
+```nim
 # Code origin: nim_kyber/docs/baby.md
 # Example: Creating kyber object with known tables and keys
 # Machine: A (reciever)
@@ -59,7 +59,7 @@ bk.publicKeys = generatePublicKey(bk.publicTable, bk.signalSecret, bk.noiseSecre
 ## Creating sending object
 To create the object to encrypt messages from a sepecific kyber (or baby-kyber), you need it's public table and it's public keys. The sender is **machine B**.
 
-```
+```nim
 # Code origin: nim_kyber/docs/baby.md
 # Example: Creating sending object
 # Machine: B (sender)
@@ -81,7 +81,7 @@ var bms: BabyKyberSender = createBabyMessageSender(publicTable, publicKeys);
 
 ## Encrypting and sending messages
 In baby-kyber you can only send 4-numbered lists containing exclusively 0 and -15. You do this in **machine B**. The following code sends a message, but it needs you to add the code in [the previous example](#creating-sending-object) to work.
-```
+```nim
 # Code origin: nim_kyber/docs/baby.md
 # Example: Encrypting and sending messages
 # Machine: B (sender)
@@ -99,7 +99,7 @@ var m: BabyMessage = bs.sendMessage([0, -15, -15, 0]); # The sended messace is [
 ## Decrypting messages
 For decripting a message, you need to know the encrypted message as well as the public keys of the sender. You do this in **machine A**.
 The following code decrypts a message, but it needs you to add the code in [the previous A example](#creating-kyber-object) to work. Keep in mind that when creating a kyber object, it uses random numbers, so you can't expect to decrypt a message from an older program run if you have ended it (or if the sender uses the public data from another run).
-```
+```nim
 # Code origin: nim_kyber/docs/baby.md
 # Example: Decrypting messages
 # Machine: A (reciever)
@@ -127,13 +127,13 @@ Then check if it worked.
 With the following data, decrypt the message:
 
 Reciever:
-- signalSecret: [[-1, -1, 0, -1], [1, 1, -1, 1]]
-- publicTable: [[-6, 14, -9, 5], [15, -7, -5, -2], [13, 14, 0, -4], [7, 9, 0, 12]]
-- noiseSecret: [[0, -1, 0, 1], [-1, -1, 0, 1]]
-- publicKeys: ([13, -7, 6, -5], [13, 0, 3, 2])
+- signalSecret: `[[-1, -1, 0, -1], [1, 1, -1, 1]]`
+- publicTable: `[[-6, 14, -9, 5], [15, -7, -5, -2], [13, 14, 0, -4], [7, 9, 0, 12]]`
+- noiseSecret: `[[0, -1, 0, 1], [-1, -1, 0, 1]]`
+- publicKeys: `([13, -7, 6, -5], [13, 0, 3, 2])`
 
 Message:
-- encryptedMessage: [-4, -13, -4, 15]
-- senderPublicKeys: ([12, -3, -14, -1], [-1, -10, 4, 2])
+- encryptedMessage: `[-4, -13, -4, 15]`
+- senderPublicKeys: `([12, -3, -14, -1], [-1, -10, 4, 2])`
 
 *Hint: use the [predefined object creation](#creating-kyber-object-with-known-tables-and-keys)*
