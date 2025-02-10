@@ -5,6 +5,8 @@
 - [Creating sending object](#creating-sending-object)
 - [Encrypting and sending messages](#encrypting-and-sending-messages)
 - [Decrypting messages](#decrypting-messages)
+- [Encrypting and sending strings]()
+- [Decrypting strings]()
 
 ## Introduction
 Big kyber is a faster version of kyber. It uses smaller numbers for easier implementation and better performance, but it's less secure.
