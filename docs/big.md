@@ -9,53 +9,27 @@
 - [Decrypting strings]()
 
 ## Introduction
-Big kyber is a faster version of kyber. It uses smaller numbers for easier implementation and better performance, but it's less secure.
-This implementation and guide is based on [Kyber for primary school students](https://crypto.stackexchange.com/questions/103754/kyber-and-dilithium-explained-to-primary-school-students).
-
-In this guide, I will talk of 2 machines: A and B. A will be the machine with the baby-kyber object, recieving messages. B will be the machine sending the message. I will clearly mark where the code is run, to demonstrate that machine B does not need to know A's secrets and viseversa. You do not need to run the code in diferent machines if you are testing it. 
-I will also be talking about secret and public keys, the secrets should be available only to one computer, while the public keys need to be used by both.
-
-Kyber (or baby kyber) is not a communication protocol, but an encryption algorithm.
-For eazy understanding, imagine a box mailed by post and secured by a lock.
-Kyber is not the postman nor the post enterprise, but it's the lock that blocks the messenger or other people from knowing the content.
+Big kyber is the full version of kyber. It uses big numbers for more secure encryption. We recommend trying [baby kyber](baby.md) for learning the usage.
 
 ## Creating kyber object
 The kyber object is the one that creates the public keys, and the one that will recive the message. It's in **machine A**.
 
-### Creating a random baby-kyber object
+### Creating a random kyber object
 To create a random kyber object, you just need to use `createRandomBabyKyber` function:
 ```nim
-# Code origin: nim_kyber/docs/baby.md
-# Example: Creating a random baby-kyber object
+# Code origin: nim_kyber/docs/big.md
+# Example: Creating a random-kyber object
 # Machine: A (reciever)
 
-import nim_kyber/baby # Import baby-kyber
+import nim_kyber # Import-kyber
 
 # Create random baby-kyber object
-var bk: BabyKyber = createRandomBabyKyber();
+var bk: Kyber = createRandomKyber();
 ```
 
 ### Creating kyber object with known tables and keys
 You can also create an object with predefined tables and keys.
-```nim
-# Code origin: nim_kyber/docs/baby.md
-# Example: Creating kyber object with known tables and keys
-# Machine: A (reciever)
-
-import nim_kyber/baby # Import baby-kyber
-
-# Create preset baby-kyber object
-var bk: BabyKyber;
-bk.noiseSecret = [[0,1,-1,0], [-1,-1,0,0]]; # Two 4-number lists with range -1 to 1
-bk.signalSecret = [[0,0,-1,0],[1,0,-1,1]]; # Two 4-number lists with range -1 to 1
-bk.publicTable = [
-            [13, 13, -12, 3],
-            [-8, 6, -9, 8],
-            [-1, 10, -5, -8],
-            [0, -7, -14, 7]
-        ]; # Four 4-number lists with range -15 to 15
-bk.publicKeys = generatePublicKey(bk.publicTable, bk.signalSecret, bk.noiseSecret); # Generate public keys from noiseSecret, signalSecret and publicTable. Not recommended to predefine
-```
+It is the same as in [baby kyber](), but I can't show the code here because a Kyber object is bery big.
 
 ## Creating sending object
 To create the object to encrypt messages from a sepecific kyber (or baby-kyber), you need it's public table and it's public keys. The sender is **machine B**.
