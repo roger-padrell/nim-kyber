@@ -1,4 +1,4 @@
-import big/encrypt, big/decrypt, big/keys, big/matrix, big/stringToList, big/consts
+import big/encrypt, big/decrypt, big/keys, big/matrix, big/stringToList, big/consts, json, std/jsonutils, tables
 
 type 
     Kyber* = object
@@ -17,6 +17,35 @@ type
         noiseSecret*: Matrix[2]
         reciverPublicKeys*: (List, List)
         senderPublicKeys*: (List, List)
+
+proc exportComplete*(k: Kyber): string = 
+    var result: Table[string,string];
+    
+    # Add elements to table
+    result["signalSecret"] = $k.signalSecret;
+    result["publicTable"] = $k.publicTable;
+    result["noiseSecret"] = $k.noiseSecret;
+    result["publicKeys"] = $k.publicKeys;
+
+    return $(result.toJson())
+
+proc exportPublic*(k: Kyber): string = 
+    var result: Table[string,string];
+    
+    # Add elements to table
+    result["publicTable"] = $k.publicTable;
+    result["publicKeys"] = $k.publicKeys;
+
+    return $(result.toJson())
+
+proc `export`*(m: Message): string = 
+    var result: Table[string,string];
+    
+    # Add elements to table
+    result["encryptedMessage"] = $m.encryptedMessage;
+    result["senderPublicKeys"] = $m.senderPublicKeys;
+
+    return $(result.toJson())
 
 proc createRandomKyber*(): Kyber = 
     var k: Kyber;
