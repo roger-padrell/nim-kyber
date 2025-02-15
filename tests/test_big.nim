@@ -1,11 +1,11 @@
 import nim_kyber/big, unittest
 
 suite "BIG KYBER: Main tests":
-    test "Baby kyber creation":
+    test "Big kyber creation":
         var bk: Kyber = createRandomKyber();
         assert true;
 
-    test "Baby message sender creation":
+    test "Big message sender creation":
         var bk: Kyber = createRandomKyber();
         var bs: KyberSender = createMessageSender(bk.publicTable, bk.publicKeys);
         assert true

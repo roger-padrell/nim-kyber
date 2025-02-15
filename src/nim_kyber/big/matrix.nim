@@ -1,4 +1,4 @@
-import consts
+import consts, strutils, parseutils
 
 type
   List* = array[listSize, int]
@@ -65,3 +65,57 @@ proc `[]`*(m: Matrix, y: int, x:int): int =
 
 proc `[]=`*(m: var Matrix, y: int, x: int, val: int) = 
   m[y][x] = val;
+
+proc parse4Matrix*(fromString: string): Matrix[4] = 
+  var splitted = fromString.split(",");
+  var res: Matrix[4];
+  var n = 0;
+  var list = 0;
+  var item = 0;
+  while n<splitted.len:
+    var replaced = splitted[n].replace("[","").replace("]","").replace("(","").replace(")","").replace(" ","")
+    var num: int;
+    discard parseInt(replaced, num, 0);
+    res[list][item] = num;
+
+    # Change list, item and n
+    n = n + 1;
+    item = n mod listSize;
+    list = ((n - item) / listSize).toInt;
+  return res;
+
+proc parse2Matrix*(fromString: string): Matrix[2] = 
+  var splitted = fromString.split(",");
+  var res: Matrix[2];
+  var n = 0;
+  var list = 0;
+  var item = 0;
+  while n<splitted.len:
+    var replaced = splitted[n].replace("[","").replace("]","").replace("(","").replace(")","").replace(" ","")
+    var num: int;
+    discard parseInt(replaced, num, 0);
+    res[list][item] = num;
+
+    # Change list, item and n
+    n = n + 1;
+    list = ((n - (n mod listSize)) / listSize).toInt;
+    item = n mod listSize;
+  return res;
+
+proc parse1Matrix*(fromString: string): Matrix[1] = 
+  var splitted = fromString.split(",");
+  var res: Matrix[1];
+  var n = 0;
+  var list = 0;
+  var item = 0;
+  while n<splitted.len:
+    var replaced = splitted[n].replace("[","").replace("]","").replace("(","").replace(")","").replace(" ","")
+    var num: int;
+    discard parseInt(replaced, num, 0);
+    res[list][item] = num;
+
+    # Change list, item and n
+    n = n + 1;
+    list = ((n - (n mod listSize)) / listSize).toInt;
+    item = n mod listSize;
+  return res;
