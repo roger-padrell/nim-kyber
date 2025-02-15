@@ -1,6 +1,6 @@
 # Package
 
-version       = "1.0.0"
+version       = "1.1.0"
 author        = "Roger Padrell"
 description   = "Implementation of the Kyber post-quantum encrypting algorithm in NIM"
 license       = "MIT"
