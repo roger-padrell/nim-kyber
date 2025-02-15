@@ -1,4 +1,4 @@
-import big/encrypt, big/decrypt, big/keys, big/matrix, big/stringToList, big/consts, tables, json, std/jsonutils
+import big/encrypt, big/decrypt, big/keys, big/matrix, big/stringToList, big/consts, tables, json
 
 type 
     Kyber* = object

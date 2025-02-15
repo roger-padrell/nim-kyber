@@ -4,11 +4,14 @@ suite "BABY KYBER: Main tests":
     test "Baby kyber creation":
         var bk: BabyKyber = createRandomBabyKyber();
         assert true;
+        discard bk;
 
     test "Baby message sender creation":
         var bk: BabyKyber = createRandomBabyKyber();
         var bs: BabyKyberSender = createBabyMessageSender(bk.publicTable, bk.publicKeys);
         assert true
+        discard bk;
+        discard bs;
 
     test "Message encryption and decryption":
         var bk: BabyKyber = createRandomBabyKyber();
